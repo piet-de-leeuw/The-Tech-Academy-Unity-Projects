@@ -472,6 +472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdf1159e706e3a4db6be64d932b27a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceUpDown: {x: 0, y: 10}
+  forceLeftRight: {x: 10, y: 0}
 --- !u!50 &813201705
 Rigidbody2D:
   serializedVersion: 4
