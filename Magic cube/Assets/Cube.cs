@@ -33,5 +33,22 @@ public class Cube : MonoBehaviour
         {
             myRigidbody2D.velocity = -forceLeftRight;
         }
+
+        if (transform.position.y >= 5.5f)
+        {
+            Debug.Log("Out of bounts up");
+        }
+        else if (transform.position.y <= - 5.5f)
+        {
+            Debug.Log("Out of bounts down");
+        }
+        else if (transform.position.x >= 9.5f)
+        {
+            Debug.Log("Out of bounts right");
+        }
+        else if (transform.position.x <= - 9.5f)
+        {
+            Debug.Log("Out of bounts left");
+        }
     }
 }
