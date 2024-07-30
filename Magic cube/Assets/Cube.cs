@@ -17,6 +17,39 @@ public class Cube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveCube();
+        OutOfBoundsDetection();
+    }
+
+    public string PrintingFromOutsite(int value)
+    {
+        string stringFromOutsite = "Hello from the other site " + value;
+        Debug.LogWarning(stringFromOutsite);
+        return stringFromOutsite;
+    }
+
+    private void OutOfBoundsDetection()
+    {
+        if (transform.position.y >= 5.5f)
+        {
+            Debug.Log("Out of bounts up");
+        }
+        else if (transform.position.y <= -5.5f)
+        {
+            Debug.Log("Out of bounts down");
+        }
+        else if (transform.position.x >= 9.5f)
+        {
+            Debug.Log("Out of bounts right");
+        }
+        else if (transform.position.x <= -9.5f)
+        {
+            Debug.Log("Out of bounts left");
+        }
+    }
+
+    private void MoveCube()
+    {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             myRigidbody2D.velocity = forceUpDown;
@@ -32,23 +65,6 @@ public class Cube : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             myRigidbody2D.velocity = -forceLeftRight;
-        }
-
-        if (transform.position.y >= 5.5f)
-        {
-            Debug.Log("Out of bounts up");
-        }
-        else if (transform.position.y <= - 5.5f)
-        {
-            Debug.Log("Out of bounts down");
-        }
-        else if (transform.position.x >= 9.5f)
-        {
-            Debug.Log("Out of bounts right");
-        }
-        else if (transform.position.x <= - 9.5f)
-        {
-            Debug.Log("Out of bounts left");
         }
     }
 }
