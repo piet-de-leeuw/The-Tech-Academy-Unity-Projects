@@ -7,28 +7,34 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
+
     Rigidbody2D myRigidbody2D;
     Animator animator;
+    Collider2D playerCollider;
+    LayerMask ground;
+
+    [SerializeField] float speed = 10f;
+    [SerializeField] float jumpHight = 4;
 
     void Start()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerCollider = GetComponent<Collider2D>();
+        ground = LayerMask.GetMask("Ground");
     }
 
-    // Update is called once per frame
     void Update()
     {
+
         Run();
+        Jump();
     }
 
     private void Run()
     {
         float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-
         myRigidbody2D.velocity = new Vector2 (horizontal * speed * Time.deltaTime, myRigidbody2D.velocity.y);
-        
         
         FlipSprite();
         RunAnimation();
@@ -47,8 +53,18 @@ public class Player : MonoBehaviour
     private void RunAnimation()
     {
         bool isRunning = MathF.Abs(myRigidbody2D.velocity.x) > Mathf.Epsilon;
-
         animator.SetBool("running", isRunning);
 
+    }
+
+    private void Jump() 
+    {
+        if (!playerCollider.IsTouchingLayers(ground)) { return; }
+        
+        bool isJumping = CrossPlatformInputManager.GetButtonDown("Jump");
+        if (isJumping)
+        {
+            myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, jumpHight);
+        }
     }
 }
