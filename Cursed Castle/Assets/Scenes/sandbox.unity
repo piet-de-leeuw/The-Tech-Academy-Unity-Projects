@@ -3666,13 +3666,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5513824666600036657, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
-      propertyPath: m_Constraints
-      value: 4
+    - target: {fileID: 7771789418065277582, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
+      propertyPath: speed
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 9064639776722342471, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.89
+      value: 3.79
       objectReference: {fileID: 0}
     - target: {fileID: 9064639776722342471, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
       propertyPath: m_LocalPosition.y
