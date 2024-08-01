@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
@@ -10,20 +11,28 @@ public class Player : MonoBehaviour
 
     Rigidbody2D myRigidbody2D;
     Animator animator;
-    Collider2D playerCollider;
+    BoxCollider2D bodyCollider;
     PolygonCollider2D feetCollider;
     LayerMask ground;
+    LayerMask climb;
 
-    [SerializeField] float speed = 10f;
-    [SerializeField] float jumpHight = 4;
+    [SerializeField] float runSpeed = 1900f;
+    [SerializeField] float jumpHeight = 16f;
+    [SerializeField] float climbSpeed = 800f;
+
+    float initialGravityScale;
 
     void Start()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        playerCollider = GetComponent<Collider2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
         feetCollider = GetComponent<PolygonCollider2D>();
+
+        initialGravityScale = myRigidbody2D.gravityScale;
+
         ground = LayerMask.GetMask("Ground");
+        climb = LayerMask.GetMask("Hanging Sheets");
     }
 
     void Update()
@@ -31,13 +40,13 @@ public class Player : MonoBehaviour
 
         Run();
         Jump();
+        Climb();
     }
 
     private void Run()
     {
-        float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-        myRigidbody2D.velocity = new Vector2 (horizontal * speed * Time.deltaTime, myRigidbody2D.velocity.y);
-        
+        float runDirection = CrossPlatformInputManager.GetAxis("Horizontal") * runSpeed * Time.deltaTime;
+        myRigidbody2D.velocity = new Vector2(runDirection , myRigidbody2D.velocity.y);
         FlipSprite();
         RunAnimation();
     }
@@ -59,14 +68,33 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Jump() 
+    private void Jump()
     {
-        if (!feetCollider.IsTouchingLayers(ground)) { return; }
-        
+        if (!feetCollider.IsTouchingLayers(ground) && !feetCollider.IsTouchingLayers(climb)) { return; }
+
         bool isJumping = CrossPlatformInputManager.GetButtonDown("Jump");
         if (isJumping)
         {
-            myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, jumpHight);
+            myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, jumpHeight);
         }
+    }
+
+    private void Climb()
+    {
+        if (bodyCollider.IsTouchingLayers(climb))
+        {
+            myRigidbody2D.gravityScale = 0f;
+            float climbeDirection = CrossPlatformInputManager.GetAxis("Vertical") * climbSpeed * Time.deltaTime;
+            myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, climbeDirection);
+
+        }
+        else
+        {
+            myRigidbody2D.gravityScale = initialGravityScale;
+        }
+
+        bool isClimbing = Math.Abs(myRigidbody2D.velocity.y) > Mathf.Epsilon;
+        animator.SetBool("climbing", isClimbing);
+
     }
 }

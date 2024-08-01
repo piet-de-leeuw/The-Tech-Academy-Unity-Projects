@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Hanging Sheets
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2506202193
+    locked: 0
+  - name: Hanging Sheets
+    uniqueID: 3057847089
     locked: 0
   - name: Player
     uniqueID: 1453834485
