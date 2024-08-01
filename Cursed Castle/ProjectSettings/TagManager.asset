@@ -47,11 +47,11 @@ TagManager:
   - name: Hanging Sheets
     uniqueID: 3057847089
     locked: 0
-  - name: Player
-    uniqueID: 1453834485
-    locked: 0
   - name: Forground
     uniqueID: 1730740039
+    locked: 0
+  - name: Player
+    uniqueID: 1453834485
     locked: 0
   - name: HiddingPlaces
     uniqueID: 3131203873
