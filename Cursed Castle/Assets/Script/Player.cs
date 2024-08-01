@@ -81,10 +81,11 @@ public class Player : MonoBehaviour
 
     private void Climb()
     {
+        float climbeDirection = 0f;
         if (bodyCollider.IsTouchingLayers(climb))
         {
             myRigidbody2D.gravityScale = 0f;
-            float climbeDirection = CrossPlatformInputManager.GetAxis("Vertical") * climbSpeed * Time.deltaTime;
+            climbeDirection = CrossPlatformInputManager.GetAxis("Vertical") * climbSpeed * Time.deltaTime;
             myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, climbeDirection);
 
         }
@@ -93,7 +94,7 @@ public class Player : MonoBehaviour
             myRigidbody2D.gravityScale = initialGravityScale;
         }
 
-        bool isClimbing = Math.Abs(myRigidbody2D.velocity.y) > Mathf.Epsilon;
+        bool isClimbing = Math.Abs(climbeDirection) > Mathf.Epsilon;
         animator.SetBool("climbing", isClimbing);
 
     }
