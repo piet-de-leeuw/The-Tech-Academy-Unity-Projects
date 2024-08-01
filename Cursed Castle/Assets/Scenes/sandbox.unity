@@ -318,7 +318,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 20
+      m_TileSpriteIndex: 21
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1351,10 +1351,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: -283150316, guid: f14ba2fc8f2ab7f4c8108890c0446f83, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -371885713, guid: f14ba2fc8f2ab7f4c8108890c0446f83, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -371885713, guid: f14ba2fc8f2ab7f4c8108890c0446f83, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -926819801, guid: f14ba2fc8f2ab7f4c8108890c0446f83, type: 3}
   - m_RefCount: 2
@@ -3997,6 +3997,55 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4006467, y: 0.4168129}
   m_EdgeRadius: 0
+--- !u!60 &848382749
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848382735}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.9333333, y: 1.9333333}
+    newSize: {x: 1.8125, y: 1.8125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.19080567, y: -0.40742877}
+      - {x: -0.19005299, y: -0.4967575}
+      - {x: 0.32374984, y: -0.49684942}
+      - {x: 0.32431477, y: -0.40869015}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1644177774
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,6 +4271,10 @@ PrefabInstance:
       value: 0.8136301
       objectReference: {fileID: 0}
     - target: {fileID: 4389387381676582135, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 8d40f2940f88e68438b21410f564bc33, type: 2}
+    - target: {fileID: 4389387381676582135, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
       propertyPath: m_Offset.x
       value: 0.14825058
       objectReference: {fileID: 0}
@@ -4231,7 +4284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7771789418065277582, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
       propertyPath: jumpHight
-      value: 16
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 9064639776722342471, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4278,7 +4331,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4902885499032181927, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
-      insertIndex: 5
+      insertIndex: 4
+      addedObject: {fileID: 848382749}
+    - targetCorrespondingSourceObject: {fileID: 4902885499032181927, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
+      insertIndex: 6
       addedObject: {fileID: 848382742}
   m_SourcePrefab: {fileID: 100100000, guid: 9f22db202a506cf4390b6d52b514cb1d, type: 3}
 --- !u!1660057539 &9223372036854775807

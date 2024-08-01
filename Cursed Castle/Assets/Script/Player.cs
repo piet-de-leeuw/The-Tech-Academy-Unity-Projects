@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     Rigidbody2D myRigidbody2D;
     Animator animator;
     Collider2D playerCollider;
+    PolygonCollider2D feetCollider;
     LayerMask ground;
 
     [SerializeField] float speed = 10f;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
         myRigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
+        feetCollider = GetComponent<PolygonCollider2D>();
         ground = LayerMask.GetMask("Ground");
     }
 
@@ -59,7 +61,7 @@ public class Player : MonoBehaviour
 
     private void Jump() 
     {
-        if (!playerCollider.IsTouchingLayers(ground)) { return; }
+        if (!feetCollider.IsTouchingLayers(ground)) { return; }
         
         bool isJumping = CrossPlatformInputManager.GetButtonDown("Jump");
         if (isJumping)
