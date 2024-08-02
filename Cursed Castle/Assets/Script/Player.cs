@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +16,16 @@ public class Player : MonoBehaviour
     PolygonCollider2D feetCollider;
     LayerMask ground;
     LayerMask climb;
+    LayerMask enemy;
 
     [SerializeField] float runSpeed = 1900f;
     [SerializeField] float jumpHeight = 16f;
     [SerializeField] float climbSpeed = 800f;
+
+    [SerializeField] float waitForMovement = 2f;
+    bool canMove = true;
+
+    [SerializeField] Vector2 hitForce = new Vector2(50f, 50f);
 
     float initialGravityScale;
 
@@ -33,18 +40,28 @@ public class Player : MonoBehaviour
 
         ground = LayerMask.GetMask("Ground");
         climb = LayerMask.GetMask("Hanging Sheets");
+        enemy = LayerMask.GetMask("Enemy");
     }
 
     void Update()
     {
+        if(canMove)
+        {
+            Run();
+            Jump();
+            Climb();
+        }
+        
 
-        Run();
-        Jump();
-        Climb();
+        if (myRigidbody2D.IsTouchingLayers(enemy))
+        {
+            GetHit();
+        }
     }
 
     private void Run()
     {
+        if (!canMove){ return; }
         float runDirection = CrossPlatformInputManager.GetAxis("Horizontal") * runSpeed * Time.deltaTime;
         myRigidbody2D.velocity = new Vector2(runDirection , myRigidbody2D.velocity.y);
         FlipSprite();
@@ -98,4 +115,22 @@ public class Player : MonoBehaviour
         animator.SetBool("climbing", isClimbing);
 
     }
+
+    private void GetHit()
+    {
+        myRigidbody2D.velocity = hitForce * new Vector2(-transform.localScale.x, 1f);
+        Debug.Log(myRigidbody2D.velocity);
+
+        animator.SetTrigger("getHit");
+        canMove = false;
+        StartCoroutine(EnableMovement());
+    }
+
+    IEnumerator EnableMovement()
+    {
+        yield return new WaitForSeconds(waitForMovement);
+        canMove = true;
+
+    }
+
 }
