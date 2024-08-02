@@ -119,7 +119,6 @@ public class Player : MonoBehaviour
     private void GetHit()
     {
         myRigidbody2D.velocity = hitForce * new Vector2(-transform.localScale.x, 1f);
-        Debug.Log(myRigidbody2D.velocity);
 
         animator.SetTrigger("getHit");
         canMove = false;
