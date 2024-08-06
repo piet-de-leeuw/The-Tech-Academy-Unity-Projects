@@ -10,6 +10,16 @@ using UnityStandardAssets.CrossPlatformInput;
 public class Player : MonoBehaviour
 {
 
+    [SerializeField] float runSpeed = 22f;
+    [SerializeField] float jumpHeight = 16f;
+    [SerializeField] float climbSpeed = 11f;
+    [SerializeField] float attackRadius = 3f;
+    
+    [SerializeField] float waitForMovement = 2f;
+    bool canMove = true;
+    [SerializeField] Vector2 hitForce = new Vector2(50f, 50f);
+    
+    [SerializeField] Transform attackBox;
     Rigidbody2D myRigidbody2D;
     Animator animator;
     BoxCollider2D bodyCollider;
@@ -17,15 +27,6 @@ public class Player : MonoBehaviour
     LayerMask ground;
     LayerMask climb;
     LayerMask enemy;
-
-    [SerializeField] float runSpeed = 1900f;
-    [SerializeField] float jumpHeight = 16f;
-    [SerializeField] float climbSpeed = 800f;
-
-    [SerializeField] float waitForMovement = 2f;
-    bool canMove = true;
-
-    [SerializeField] Vector2 hitForce = new Vector2(50f, 50f);
 
     float initialGravityScale;
 
@@ -50,19 +51,23 @@ public class Player : MonoBehaviour
             Run();
             Jump();
             Climb();
+            Attack();
+            ExitLevel();
+
+            if (myRigidbody2D.IsTouchingLayers(enemy))
+            {
+                PlayerHit();
+            }
         }
         
 
-        if (myRigidbody2D.IsTouchingLayers(enemy))
-        {
-            GetHit();
-        }
+
     }
 
     private void Run()
     {
         if (!canMove){ return; }
-        float runDirection = CrossPlatformInputManager.GetAxis("Horizontal") * runSpeed * Time.deltaTime;
+        float runDirection = CrossPlatformInputManager.GetAxis("Horizontal") * runSpeed;
         myRigidbody2D.velocity = new Vector2(runDirection , myRigidbody2D.velocity.y);
         FlipSprite();
         RunAnimation();
@@ -102,7 +107,7 @@ public class Player : MonoBehaviour
         if (bodyCollider.IsTouchingLayers(climb))
         {
             myRigidbody2D.gravityScale = 0f;
-            climbeDirection = CrossPlatformInputManager.GetAxis("Vertical") * climbSpeed * Time.deltaTime;
+            climbeDirection = CrossPlatformInputManager.GetAxis("Vertical") * climbSpeed ;
             myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, climbeDirection);
 
         }
@@ -116,12 +121,13 @@ public class Player : MonoBehaviour
 
     }
 
-    private void GetHit()
+    public void PlayerHit()
     {
         myRigidbody2D.velocity = hitForce * new Vector2(-transform.localScale.x, 1f);
 
         animator.SetTrigger("getHit");
         canMove = false;
+        FindObjectOfType<GameSession>().ProcessPlayerLives();
         StartCoroutine(EnableMovement());
     }
 
@@ -132,4 +138,33 @@ public class Player : MonoBehaviour
 
     }
 
+    void Attack()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
+        {
+            animator.SetTrigger("attack");
+            Collider2D[] enemys = Physics2D.OverlapCircleAll(attackBox.position, attackRadius, enemy);
+
+            foreach (Collider2D enemy in enemys)
+            {
+                enemy.GetComponent<Enemy>().Die();
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackBox.position, attackRadius);
+    }
+
+    private void ExitLevel()
+    {
+        if (!myRigidbody2D.IsTouchingLayers(LayerMask.GetMask("Interactable"))) { return; }
+
+        if (CrossPlatformInputManager.GetButton("Vertical"))
+        {
+            FindObjectOfType<ExitDoor>().StartLoadingNextLevel();
+        }
+
+    }
 }

@@ -16,7 +16,7 @@ TagManager:
   - Player
   - WorldConfiner
   - Enemy
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Forground
     uniqueID: 1730740039
+    locked: 0
+  - name: Interactable
+    uniqueID: 309384089
     locked: 0
   - name: Objects-Items
     uniqueID: 1367501289
