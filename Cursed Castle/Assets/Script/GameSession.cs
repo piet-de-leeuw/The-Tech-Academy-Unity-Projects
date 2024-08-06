@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLives = 3, score = 0;
-    [SerializeField] TMP_Text livesText, scoreText;
+    [SerializeField] TMP_Text scoreText;
+    [SerializeField] Image[] hearts;
 
     private void Awake()
     {
@@ -28,13 +29,12 @@ public class GameSession : MonoBehaviour
 
     private void Start()
     {
-        livesText.text = playerLives.ToString();
         scoreText.text = score.ToString();
     }
 
     public void ProcessPlayerLives()
     {
-        if (playerLives >= 1)
+        if (playerLives > 1)
         {
             TakeDamage();
         }
@@ -48,13 +48,15 @@ public class GameSession : MonoBehaviour
     private void TakeDamage()
     {
         playerLives--;
-        livesText.text = playerLives.ToString();
+        UpdateHearts();
     }
+
 
     public void AddLive()
     {
+        if (playerLives >= 3) { return; }
         playerLives++;
-        livesText.text = playerLives.ToString();
+        UpdateHearts();
     }
 
     public void AddScore(int value)
@@ -67,4 +69,20 @@ public class GameSession : MonoBehaviour
     {
         SceneManager.LoadScene(4);
     }
+    
+    private void UpdateHearts()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < playerLives)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+    }
+
 }

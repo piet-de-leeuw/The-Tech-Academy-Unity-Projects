@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2182794348038278189}
   - component: {fileID: 7341574767787238147}
   - component: {fileID: 4905816203336779977}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: EnterDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -43.38, y: 17.876, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -165,3 +165,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac6ad5576ecb7a44991cf07544dd314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openSFX: {fileID: 8300000, guid: 2200e7055e65d7f4792152bb21f63175, type: 3}
+  closeSFX: {fileID: 8300000, guid: c84312930dd38ec468e241176aea5b9d, type: 3}

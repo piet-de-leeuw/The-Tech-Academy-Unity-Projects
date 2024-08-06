@@ -24,9 +24,13 @@ public class Player : MonoBehaviour
     Animator animator;
     BoxCollider2D bodyCollider;
     PolygonCollider2D feetCollider;
+    AudioSource audioSource;
     LayerMask ground;
     LayerMask climb;
     LayerMask enemy;
+
+    [SerializeField] AudioClip runSFX, jumpSFX, attackSFX, getHitSFX;
+
 
     float initialGravityScale;
 
@@ -36,12 +40,15 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         bodyCollider = GetComponent<BoxCollider2D>();
         feetCollider = GetComponent<PolygonCollider2D>();
+        audioSource = GetComponent<AudioSource>();
 
         initialGravityScale = myRigidbody2D.gravityScale;
 
         ground = LayerMask.GetMask("Ground");
         climb = LayerMask.GetMask("Hanging Sheets");
         enemy = LayerMask.GetMask("Enemy");
+
+        animator.SetTrigger("enter");
     }
 
     void Update()
@@ -59,10 +66,9 @@ public class Player : MonoBehaviour
                 PlayerHit();
             }
         }
-        
-
 
     }
+
 
     private void Run()
     {
@@ -71,6 +77,19 @@ public class Player : MonoBehaviour
         myRigidbody2D.velocity = new Vector2(runDirection , myRigidbody2D.velocity.y);
         FlipSprite();
         RunAnimation();
+        bool isRunning = Mathf.Abs(myRigidbody2D.velocity.x) > Mathf.Epsilon;
+        if (isRunning && !audioSource.isPlaying)
+        {
+            if (feetCollider.IsTouchingLayers(ground))
+            {
+                audioSource.PlayOneShot(runSFX);
+            }
+            else
+            {
+                audioSource.Stop();
+            }
+        }
+
     }
 
     private void FlipSprite()
@@ -97,7 +116,9 @@ public class Player : MonoBehaviour
         bool isJumping = CrossPlatformInputManager.GetButtonDown("Jump");
         if (isJumping)
         {
+            audioSource.PlayOneShot(jumpSFX);            
             myRigidbody2D.velocity = new Vector2(myRigidbody2D.velocity.x, jumpHeight);
+
         }
     }
 
@@ -118,14 +139,20 @@ public class Player : MonoBehaviour
 
         bool isClimbing = Math.Abs(climbeDirection) > Mathf.Epsilon;
         animator.SetBool("climbing", isClimbing);
+        if (isClimbing && !audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(runSFX);
+        }
 
     }
 
     public void PlayerHit()
     {
-        myRigidbody2D.velocity = hitForce * new Vector2(-transform.localScale.x, 1f);
-
         animator.SetTrigger("getHit");
+        myRigidbody2D.velocity = hitForce * new Vector2(-transform.localScale.x, 1f);
+        audioSource.PlayOneShot(getHitSFX);
+
+        
         canMove = false;
         FindObjectOfType<GameSession>().ProcessPlayerLives();
         StartCoroutine(EnableMovement());
@@ -142,7 +169,9 @@ public class Player : MonoBehaviour
     {
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
+            audioSource.PlayOneShot(attackSFX);
             animator.SetTrigger("attack");
+
             Collider2D[] enemys = Physics2D.OverlapCircleAll(attackBox.position, attackRadius, enemy);
 
             foreach (Collider2D enemy in enemys)
@@ -163,7 +192,7 @@ public class Player : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButton("Vertical"))
         {
-            animator.SetTrigger("exitDoor");
+            animator.SetTrigger("exit");
         }
     }
 

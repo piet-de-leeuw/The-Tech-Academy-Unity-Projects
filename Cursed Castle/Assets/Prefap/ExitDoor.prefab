@@ -166,3 +166,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToLoad: 2
+  openSFX: {fileID: 8300000, guid: 2200e7055e65d7f4792152bb21f63175, type: 3}
+  closeSFX: {fileID: 8300000, guid: c84312930dd38ec468e241176aea5b9d, type: 3}

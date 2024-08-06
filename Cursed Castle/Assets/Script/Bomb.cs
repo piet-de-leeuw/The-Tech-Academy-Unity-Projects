@@ -12,6 +12,9 @@ public class Bomb : MonoBehaviour
     [SerializeField] float radius = 10;
     [SerializeField] Vector2 explotionForce = new Vector2(200f, 100f);
 
+    [SerializeField] AudioClip burningSFX;
+    [SerializeField] AudioClip explodeSFX;
+
 
     void Start()
     {
@@ -49,5 +52,15 @@ public class Bomb : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+    public void BurningSFX()
+    {
+        AudioSource.PlayClipAtPoint(burningSFX, Camera.main.transform.position);
+    }
+
+    public void ExplodeSFX()
+    {
+        AudioSource.PlayClipAtPoint(explodeSFX, Camera.main.transform.position);
     }
 }

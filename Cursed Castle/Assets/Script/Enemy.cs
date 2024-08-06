@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
 
     [SerializeField] float runSpeed = 20f;
+    [SerializeField] AudioClip dieSFX;
 
 
     void Start()
@@ -53,11 +54,13 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         animator.SetTrigger("die");
+        AudioSource.PlayClipAtPoint(dieSFX, Camera.main.transform.position);
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;
         myRigidbody2D.bodyType = RigidbodyType2D.Static;
         StartCoroutine(WaitForDistroy());
     }
+
 
     IEnumerator WaitForDistroy()
     {

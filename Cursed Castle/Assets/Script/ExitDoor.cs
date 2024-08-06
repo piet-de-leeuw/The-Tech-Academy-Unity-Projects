@@ -7,6 +7,9 @@ public class ExitDoor : MonoBehaviour
 {
     [SerializeField] float secondsToLoad = 2f;
 
+    [SerializeField] AudioClip openSFX;
+    [SerializeField] AudioClip closeSFX;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         GetComponent<Animator>().SetTrigger("open");
@@ -26,5 +29,15 @@ public class ExitDoor : MonoBehaviour
         yield return new WaitForSeconds(secondsToLoad);
         SceneManager.LoadScene(currendSceneIndex + 1);
 
+    }
+
+    public void OpenSFX()
+    {
+        AudioSource.PlayClipAtPoint(openSFX, Camera.main.transform.position);
+    }
+
+    public void CloseSFX()
+    {
+        AudioSource.PlayClipAtPoint(closeSFX, Camera.main.transform.position);
     }
 }
