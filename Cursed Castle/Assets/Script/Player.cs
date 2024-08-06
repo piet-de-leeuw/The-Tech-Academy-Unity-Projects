@@ -163,8 +163,13 @@ public class Player : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButton("Vertical"))
         {
-            FindObjectOfType<ExitDoor>().StartLoadingNextLevel();
+            animator.SetTrigger("exitDoor");
         }
+    }
 
+    public void NextLevel()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        FindObjectOfType<ExitDoor>().StartLoadingNextLevel();
     }
 }

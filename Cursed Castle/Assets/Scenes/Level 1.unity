@@ -11063,6 +11063,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5448445521784502448, guid: 154a1389b8648ae499124385ca5080a8, type: 3}
   m_PrefabInstance: {fileID: 1454916219}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &924748117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 924748120}
+  - component: {fileID: 924748119}
+  - component: {fileID: 924748118}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &924748118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924748117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &924748119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924748117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &924748120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924748117}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &956339608 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7100883377565604478, guid: db25d39dccc104e40882e2a42ae54eac, type: 3}
@@ -45954,7 +46022,7 @@ MonoBehaviour:
   m_Instructions:
   - m_FullHash: 1432961145
     m_VirtualCamera: {fileID: 1821055016}
-    m_ActivateAfter: 3
+    m_ActivateAfter: 2
     m_MinDuration: 0
   - m_FullHash: -827840423
     m_VirtualCamera: {fileID: 1660480653}
@@ -45963,7 +46031,7 @@ MonoBehaviour:
   - m_FullHash: 421803916
     m_VirtualCamera: {fileID: 1859695074}
     m_ActivateAfter: 0
-    m_MinDuration: 2
+    m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -46767,3 +46835,4 @@ SceneRoots:
   - {fileID: 1140569243}
   - {fileID: 1987587384}
   - {fileID: 1383174561}
+  - {fileID: 924748120}
