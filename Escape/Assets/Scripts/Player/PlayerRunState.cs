@@ -17,6 +17,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void Update(PlayerController player)
     {
+        //player.MoveLeftRight(player.runSpeed);
         float horizontal = Input.GetAxis("Horizontal");
         player.Rigidbody2D.velocity = new Vector2(horizontal * player.runSpeed, player.Rigidbody2D.velocity.y);
 

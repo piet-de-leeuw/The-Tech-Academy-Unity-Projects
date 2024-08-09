@@ -61,4 +61,10 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool(trigger, state);
     }
+
+    public void MoveLeftRight(float speed)
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        rbody.velocity = new Vector2(horizontal * speed, rbody.velocity.y);
+    }
 }
