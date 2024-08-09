@@ -15,14 +15,15 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void OnCollisionEnter2D(PlayerController player)
     {
-        //if (isGoiningUp) { return; }
-        Debug.Log("Idle");
+        //Ignores the collision when going through a platform from under it. 
+        if (isGoiningUp) { return; }
+       
         player.TransitionToState(player.IdleState);
     }
 
     public override void Update(PlayerController player)
     {
-        //isGoiningUp = player.Rigidbody2D.velocity.y > 0;
+        isGoiningUp = player.Rigidbody2D.velocity.y > 0;
 
         player.MoveLeftRight(player.jumpSpeed);
         //float horizontal = Input.GetAxis("Horizontal");
